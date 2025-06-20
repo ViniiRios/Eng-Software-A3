@@ -1,4 +1,5 @@
 import type { Route } from "./+types/home";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,8 +14,8 @@ export default function Home() {
       <div className="col-12 col-sm-8">
         <h1 className="display-3 mb-5">Bem vindo a nossa página inicial</h1>
         <div className="d-flex gap-3 mb-5">
-          <a href="#" className="btn btn-lg btn-primary">Cadastre-se</a>
-          <a href="#" className="btn btn-lg btn-outline-primary">Login</a>
+          <Link className="btn btn-outline-light btn-lg text-decoration-none" to="/sign-up">Cadastre-se</Link>
+          <Link className="btn btn-outline-light btn-lg text-decoration-none" to="/login">Login</Link>
         </div>
       </div>
     </div>
