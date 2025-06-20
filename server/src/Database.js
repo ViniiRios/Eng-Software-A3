@@ -7,14 +7,27 @@ class Database {
         this._createFileIfNotExists();
         this._openConnectionWithFile();
         this._createSchemaIfNotExists();
-        this._populateTableStatus();
+        // this._populateTableStatus();
     }
 
-    exec(unsafeQuery) {
-        return this.db.exec(unsafeQuery);
+    async run(unsafeQuery) {
+        return new Promise((resolve, reject) => {
+            this.db.run(unsafeQuery, (error) => {
+                if(error) reject(error);
+                resolve(true);
+            })
+        })
     }
 
-    _sanitize(unsafeQuery) {}
+    async all(unsafeQuery) {
+        return new Promise((resolve, reject) => {
+            this.db.all(unsafeQuery, (error, result) => {
+                if(error) reject(error);
+                resolve(result);
+            })
+        })
+    }
+
     _openConnectionWithFile() {
         try {
             this.db = new sqlite3.Database(NOME_ARQUIVO, sqlite3.OPEN_READWRITE);
@@ -24,19 +37,19 @@ class Database {
         }
     }
     _createSchemaIfNotExists() {
-        db.exec(`
+        this.db.run(`
             CREATE TABLE IF NOT EXISTS pipe (
                 id INT PRIMARY KEY NOT NULL,
                 name VARCHAR(256) NOT NULL
             )
         `);
-        db.exec(`
+        this.db.run(`
             CREATE TABLE IF NOT EXISTS status (
                 id INT PRIMARY KEY NOT NULL,
                 name VARCHAR(256) NOT NULL
             )
         `);
-        db.exec(`
+        this.db.run(`
             CREATE TABLE IF NOT EXISTS task (
                 id INT PRIMARY KEY NOT NULL,
                 title VARCHAR(256) NOT NULL,
@@ -47,7 +60,7 @@ class Database {
                 FOREIGN KEY(fk_status) REFERENCES status(id)
             )
         `);
-        db.exec(`
+        this.db.run(`
             CREATE TABLE IF NOT EXISTS users (
                 id INT PRIMARY KEY NOT NULL,
                 name VARCHAR(256) NOT NULL,
@@ -62,10 +75,10 @@ class Database {
     }
 
     _populateTableStatus() {
-        this.exec(`
+        this.run(`
             DELETE FROM status
         `);
-        this.exec(`
+        this.run(`
             INSERT INTO status(id, name)
             VALUES (1, "a fazer"), (2, "fazendo"), (3, "feito")
         `);
