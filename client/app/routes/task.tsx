@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router"
+import { Link, useNavigate, useParams } from "react-router"
 
 async function getTaskData(taskId: string): Promise<ITask | boolean> {
     let response = false
@@ -47,7 +47,16 @@ export default function Task() {
             })
         });
     }
+    async function deleteTask() {
+        const request = await fetch(`http://localhost:3000/tasks/${id}`, {
+            method: "DELETE"
+        });
+        const response = await request.json();
+        if(response === true) return navigate("/kanban/")
+        alert("Houve algum erro, tente novamente")
+    }
     const {id} = useParams();
+    const navigate = useNavigate();
     const [statusList, setStatusList] = useState([] as IStatus[]);
     const [userList, setUserList] = useState([] as IOwner[]);
     const [pipeList, setPipeList] = useState([] as IPipe[]);
@@ -102,7 +111,7 @@ export default function Task() {
                     </div>
                 </div>
                 <div className="mb-3 d-flex align-items-center gap-3 justify-content-between">
-                    <button className="btn btn-outline-danger">Deletar Task</button>
+                    <button onClick={() => deleteTask()} className="btn btn-outline-danger">Deletar Task</button>
                     <button onClick={() => updateTask()} className="btn btn-primary">Salvar Task</button>
                 </div>
             </div>

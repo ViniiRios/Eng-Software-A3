@@ -53,6 +53,11 @@ app.patch('/tasks/:id', async (req, res) => {
   res.status(200).send(data)
 })
 
+app.delete('/tasks/:id', async (req, res) => {
+  const result = await tasksCrud.deleteById(req.params.id);
+  res.status(200).send(result)
+})
+
 app.get("/users", async (req, res) => {
   const result = await usersCrud.findAll(req.query);
   res.status(200).json(result)

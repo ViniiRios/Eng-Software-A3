@@ -70,6 +70,18 @@ class Tasks {
             return false;
         }
     }
+    async deleteById(id) {
+        let query = `DELETE FROM task WHERE id=${parseInt(id)}`
+        console.log(`Tasks::dekleteById`, {query})
+        try {
+            await this.db.run(query);
+            return true;
+        }
+        catch(e) {
+            console.error(e);
+            return false;
+        }
+    }
 }
 
 export default Tasks;
