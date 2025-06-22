@@ -8,6 +8,11 @@ class Tasks {
         let offset = 0
         Object.keys(filterOptions).forEach(filterKey => {
             switch(filterKey.toLowerCase()) {
+                case "pipe_id": {
+                    query += " ";
+                    query += `WHERE fk_pipe = ${filterOptions[filterKey]}`;
+                    break;
+                }
                 case "search_for": {
                     query += " ";
                     query += `WHERE title LIKE "%${filterOptions[filterKey]}%" OR description LIKE "%${filterOptions[filterKey]}%"`;
