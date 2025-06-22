@@ -47,7 +47,7 @@ export default function Kanban() {
                             <div className="d-flex pt-4 flex-column overflow-y-auto flex-grow-1 gap-3">
                                 {
                                     cards.map((card, cardIndex) => (
-                                        <Link className="text-decoration-none" to={`/task/${card.id}`}>
+                                        <Link key={cardIndex} className="text-decoration-none" to={`/task/${card.id}`}>
                                             <Card key={cardIndex} title={card.title} description={card.description} />
                                         </Link>
                                     ))
