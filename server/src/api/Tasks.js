@@ -50,7 +50,7 @@ class Tasks {
         let query = `SELECT * from task WHERE id=${parseInt(id)}`;
         console.log(`Tasks::FindById`, {query})
         try {
-            const result = await this.db.all(query);
+            const [result] = await this.db.all(query);
             return result;
         }
         catch(e) {

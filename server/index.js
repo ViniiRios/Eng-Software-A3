@@ -39,8 +39,10 @@ app.get('/tasks/:id', async (req, res) => {
 })
 
 app.patch('/tasks/:id', async (req, res) => {
-  const [task] = await tasksCrud.findById(req.params.id);
+  const task = await tasksCrud.findById(req.params.id);
   const data = Object.assign(task, {});
+
+  console.log({body: req.body})
   
   if(req.body?.title) data.title = req.body.title;
   if(req.body?.description) data.description = req.body.description;
