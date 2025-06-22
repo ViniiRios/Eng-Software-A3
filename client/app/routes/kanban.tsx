@@ -38,24 +38,31 @@ export default function Kanban() {
         })
     }, [""])
     return (
-        <div className="container-fluid d-flex vw-100 vh-100 bg-light align-items-end p-4 pb-0 overflow-x-auto overflow-y-hidden gap-3">
-                {
-                    pipes.map(({name, cards}, pipeIndex) => 
-                        <div key={pipeIndex} className="bg-light p-3 pb-0 rounded d-flex flex-column h-100 flex-shrink-0" style={pipeStyling}>
-                            <h2 className="h5 m-0 text-capitalize">{name}</h2>
-                            <hr className="mt-2 mb-0 mx-0 border-primary border-bottom border-2"/>
-                            <div className="d-flex pt-4 flex-column overflow-y-auto flex-grow-1 gap-3">
-                                {
-                                    cards.map((card, cardIndex) => (
-                                        <Link key={cardIndex} className="text-decoration-none" to={`/task/${card.id}`}>
-                                            <Card key={cardIndex} title={card.title} description={card.description} />
-                                        </Link>
-                                    ))
-                                }
+        <div className="vw-100 vh-100 d-flex flex-column bg-light">
+            <Link to="/task/new" className="d-block text-end p-4 pb-0">
+                <button className="btn btn-sm px-3 py-1 btn-outline-secondary">Criar Task</button>
+            </Link>
+            <div className="container-fluid d-flex bg-light align-items-end p-4 pt-0 pb-0 overflow-x-auto overflow-y-hidden gap-3">
+                    {
+                        pipes.map(({name, cards}, pipeIndex) => 
+                            <div key={pipeIndex} className="bg-light p-3 pb-0 rounded d-flex flex-column h-100 flex-shrink-0" style={pipeStyling}>
+                                <div className="d-flex justify-content-between">
+                                    <h2 className="h5 m-0 text-capitalize">{name}</h2>
+                                </div>
+                                <hr className="mt-2 mb-0 mx-0 border-primary border-bottom border-2"/>
+                                <div className="d-flex pt-4 flex-column overflow-y-auto flex-grow-1 gap-3">
+                                    {
+                                        cards.map((card, cardIndex) => (
+                                            <Link key={cardIndex} className="text-decoration-none" to={`/task/${card.id}`}>
+                                                <Card key={cardIndex} title={card.title} description={card.description} />
+                                            </Link>
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    )
-                }
+                        )
+                    }
+            </div>
         </div>
     )
 }

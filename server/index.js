@@ -38,6 +38,18 @@ app.get('/tasks/:id', async (req, res) => {
   res.status(200).send(result)
 })
 
+app.post('/tasks', async (req, res) => {
+  const data = {};
+
+  data.title = req.body.title;
+  data.description = req.body.description;
+  data.fk_pipe = req.body.pipeId;
+  data.fk_status = req.body.statusId;
+  console.log({data, body: req.body})
+
+  const response = await tasksCrud.create(data);
+  res.status(200).send(response)
+})
 app.patch('/tasks/:id', async (req, res) => {
   const task = await tasksCrud.findById(req.params.id);
   const data = Object.assign(task, {});

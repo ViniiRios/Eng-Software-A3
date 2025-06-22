@@ -82,6 +82,20 @@ class Tasks {
             return false;
         }
     }
+    async create(data) {
+        const [{id}] = await this.db.all(`SELECT id from task ORDER BY id DESC LIMIT 1`);
+        let query = `INSERT into task(id, title, description, fk_pipe, fk_status) VALUES (${id+1},"${data.title}","${data.description}",${data.fk_pipe},${data.fk_status})`;
+        console.log({query, id})
+        await this.db.run(query)
+        const response = {
+            id: id+1,
+            title: data.title,
+            description: data.description,
+            fk_pipe: data.pipeId,
+            fk_status: data.statusId
+        }
+        return response
+    }
 }
 
 export default Tasks;

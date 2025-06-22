@@ -5,4 +5,5 @@ export default [
     route("login", "./routes/login.tsx"),
     route("kanban", "./routes/kanban.tsx"),
     route("task/:id", "./routes/task.tsx"),
+    route("task/new", "./routes/create-task.tsx"),
 ] satisfies RouteConfig;
