@@ -4,6 +4,16 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
-
+.task {
+    padding: 1rem;
+    color: #1b1b1b;
+    border: 1px solid #7776;
+    box-shadow: 0 2px .2em .1rem #1b1b1b22;
+    border-radius: .5rem;
+    transition: all 100ms ease-in;
+    &:hover {
+        color: white;
+        border-color: transparent;
+        background-color: #1b1b1b;
+    }
 }
