@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router"
+import { Link, useParams } from "react-router"
 
 async function getTaskData(taskId: string): Promise<ITask | boolean> {
     let response = false
@@ -47,7 +47,6 @@ export default function Task() {
             })
         });
     }
-
     const {id} = useParams();
     const [statusList, setStatusList] = useState([] as IStatus[]);
     const [userList, setUserList] = useState([] as IOwner[]);
@@ -76,6 +75,9 @@ export default function Task() {
     }, [""])
     return (
         <div className="container vw-100 vh-100 d-flex flex-column overflow-y-auto overflow-x-hidden">
+            <div className="my-4">
+                <Link className="text-decoration-none" to="/kanban/">Voltar para o Kanban</Link>
+            </div>
             <div className="row m-auto">
                 <div className="mb-3">
                     <label className="form-label" htmlFor="title">Titulo</label>
