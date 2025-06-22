@@ -46,6 +46,30 @@ class Tasks {
             return false;
         }
     }
+    async findById(id, filterOptions) {
+        let query = `SELECT * from task WHERE id=${parseInt(id)}`;
+        console.log(`Tasks::FindById`, {query})
+        try {
+            const result = await this.db.all(query);
+            return result;
+        }
+        catch(e) {
+            console.error(e)
+            return false;
+        }
+    }
+    async updateTask(id, data) {
+        let query = `UPDATE task SET title="${data.title}", description="${data.description}", fk_pipe=${data.fk_pipe}, fk_status=${data.fk_status} WHERE id=${parseInt(id)}`;
+        console.log(`Tasks::FindById`, {query})
+        try {
+            const result = await this.db.all(query);
+            return result;
+        }
+        catch(e) {
+            console.error(e)
+            return false;
+        }
+    }
 }
 
 export default Tasks;
