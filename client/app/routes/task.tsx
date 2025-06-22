@@ -14,16 +14,9 @@ async function getTaskData(taskId: string) {
 }
 
 async function getTaskStatus() {
-    return [
-        {
-            id: 1,
-            name: "Pendente"
-        },
-        {
-            id: 2,
-            name: "Feito"
-        }
-    ]
+    const request = await fetch(`http://localhost:3000/status`);
+    const response = await request.json();
+    return response
 }
 
 export default function Task() {
