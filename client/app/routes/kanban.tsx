@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import Card from "~/components/Card";
 
 async function getPipeInformation(): Promise<{id: number, title: string}[]> {
@@ -37,7 +38,7 @@ export default function Kanban() {
         })
     }, [""])
     return (
-        <div className="container-fluid d-flex vw-10 vh-100 bg-light align-items-end p-4 pb-0 overflow-x-auto overflow-y-hidden gap-3">
+        <div className="container-fluid d-flex vw-100 vh-100 bg-light align-items-end p-4 pb-0 overflow-x-auto overflow-y-hidden gap-3">
                 {
                     pipes.map(({name, cards}, pipeIndex) => 
                         <div key={pipeIndex} className="bg-light p-3 pb-0 rounded d-flex flex-column h-100 flex-shrink-0" style={pipeStyling}>
@@ -45,7 +46,11 @@ export default function Kanban() {
                             <hr className="mt-2 mb-0 mx-0 border-primary border-bottom border-2"/>
                             <div className="d-flex pt-4 flex-column overflow-y-auto flex-grow-1 gap-3">
                                 {
-                                    cards.map((card, cardIndex) => <Card key={cardIndex} title={card.title} description={card.description} />)
+                                    cards.map((card, cardIndex) => (
+                                        <Link className="text-decoration-none" to={`/task/${card.id}`}>
+                                            <Card key={cardIndex} title={card.title} description={card.description} />
+                                        </Link>
+                                    ))
                                 }
                             </div>
                         </div>
@@ -55,4 +60,4 @@ export default function Kanban() {
     )
 }
 
-type IPipeArray = Array<{name: string, cards: Array<{title: string, description: string}>}>
+type IPipeArray = Array<{name: string, cards: Array<{id: number, title: string, description: string}>}>
