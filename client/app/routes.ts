@@ -7,4 +7,5 @@ export default [
     route("task/:id", "./routes/task.tsx"),
     route("task/new", "./routes/create-task.tsx"),
     route("pipe/new", "./routes/create-pipe.tsx"),
+    route("pipe/:id", "./routes/pipe.tsx"),
 ] satisfies RouteConfig;

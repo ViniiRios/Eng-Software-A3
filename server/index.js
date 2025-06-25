@@ -22,12 +22,32 @@ app.get('/pipes/', async (req, res) => {
   res.status(200).send(result)
 })
 
+app.get('/pipes/:id', async (req, res) => {
+  const result = await pipesCrud.findById(req.params.id);
+  res.status(200).send(result)
+})
+
 app.post('/pipes', async (req, res) => {
   const data = {};
   data.name = req.body.name;
 
   const response = await pipesCrud.create(data);
   res.status(200).send(response)
+})
+
+app.patch('/pipes/:id', async (req, res) => {
+  const task = await pipesCrud.findById(req.params.id);
+  const data = Object.assign(task, {});
+  
+  if(req.body?.name) data.name = req.body.name;
+
+  await pipesCrud.updatePipe(req.params.id, data);
+  res.status(200).send(data)
+})
+
+app.delete('/pipes/:id', async (req, res) => {
+  const result = await pipesCrud.deleteById(req.params.id);
+  res.status(200).send(result)
 })
 
 app.get('/tasks/', async (req, res) => {

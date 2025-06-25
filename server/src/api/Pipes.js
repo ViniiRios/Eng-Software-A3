@@ -41,6 +41,42 @@ class Pipes {
             return false;
         }
     }
+    async findById(id) {
+        let query = `SELECT id, name from pipe WHERE id=${parseInt(id)}`;
+        console.log(`Pipes::FindById`, {query})
+        try {
+            const [result] = await this.db.all(query);
+            return result;
+        }
+        catch(e) {
+            console.error(e)
+            return false;
+        }
+    }
+    async updatePipe(id, data) {
+        let query = `UPDATE pipe SET name="${data.name}" WHERE id=${parseInt(id)}`;
+        console.log(`Pipes::updatePipe`, {query})
+        try {
+            const result = await this.db.all(query);
+            return result;
+        }
+        catch(e) {
+            console.error(e)
+            return false;
+        }
+    }
+    async deleteById(id) {
+        let query = `DELETE FROM pipe WHERE id=${parseInt(id)}`
+        console.log(`Pipes::deleteById`, {query})
+        try {
+            await this.db.run(query);
+            return true;
+        }
+        catch(e) {
+            console.error(e);
+            return false;
+        }
+    }
     async create({name}) {
         let [lastPipeCreated] = await this.db.all(`SELECT id from pipe ORDER BY id DESC LIMIT 1`);
         if(!lastPipeCreated) lastPipeCreated = {id: 0}
