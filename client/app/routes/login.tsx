@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 
 
 export default function Login() {
+    let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -20,6 +22,8 @@ export default function Login() {
                 setShowErrorMessage(true);
                 return;
             }
+
+            navigate("/kanban");
         }
         catch(e) {
             setShowErrorMessage(true);
