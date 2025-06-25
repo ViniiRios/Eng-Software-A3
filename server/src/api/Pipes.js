@@ -41,6 +41,18 @@ class Pipes {
             return false;
         }
     }
+    async create({name}) {
+        let [lastPipeCreated] = await this.db.all(`SELECT id from pipe ORDER BY id DESC LIMIT 1`);
+        if(!lastPipeCreated) lastPipeCreated = {id: 0}
+        let query = `INSERT into pipe(id, name) VALUES (${lastPipeCreated.id+1},"${name}")`;
+        console.log(`Pipes::create`, {query})
+        await this.db.run(query)
+        const response = {
+            id: lastPipeCreated.id+1,
+            name
+        }
+        return response
+    }
 }
 
 export default Pipes;

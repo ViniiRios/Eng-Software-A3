@@ -39,9 +39,15 @@ export default function Kanban() {
     }, [""])
     return (
         <div className="vw-100 vh-100 d-flex flex-column bg-light">
-            <Link to="/task/new" className="d-block text-end p-4 pb-0">
-                <button className="btn btn-sm px-3 py-1 btn-outline-secondary">Criar Task</button>
-            </Link>
+            <div className="d-flex gap-3 p-4 w-100 justify-content-end">
+                <Link to="/pipe/new" className="d-block text-end">
+                    <button className="btn btn-sm px-3 py-1 btn-outline-secondary">Criar Pipe</button>
+                </Link>
+                <Link to="/task/new" className="d-block text-end">
+                    <button className="btn btn-sm px-3 py-1 btn-outline-secondary">Criar Task</button>
+                </Link>
+
+            </div>
             <div className="container-fluid d-flex bg-light align-items-end p-4 pt-0 pb-0 overflow-x-auto overflow-y-hidden gap-3">
                     {
                         pipes.map(({name, cards}, pipeIndex) => 

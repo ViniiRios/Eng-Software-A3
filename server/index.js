@@ -22,6 +22,14 @@ app.get('/pipes/', async (req, res) => {
   res.status(200).send(result)
 })
 
+app.post('/pipes', async (req, res) => {
+  const data = {};
+  data.name = req.body.name;
+
+  const response = await pipesCrud.create(data);
+  res.status(200).send(response)
+})
+
 app.get('/tasks/', async (req, res) => {
   const result = await tasksCrud.findAll(req.query);
   res.status(200).send(result)
