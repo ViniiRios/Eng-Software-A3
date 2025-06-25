@@ -43,10 +43,18 @@ class Users {
         }
     }
 
-    find(filterOptions) {
-        const {nickname} = filterOptions
-        return {
-            result: true
+    async findByEmailAndPassword({email, password}) {
+        console.log(email, password)
+        let query = `SELECT COUNT(id) as rows FROM users WHERE email="${email.toString().replaceAll(/\d+\=\d+/g, "")}" AND password="${password.toString().replaceAll(/\d+\=\d+/g, "")}"`;
+        console.log(`Users::FindAll`, {query})
+        try {
+            const [result] = await this.db.all(query);
+            if(!result.rows) return false;
+            return true;
+        }
+        catch(e) {
+            console.error(e)
+            return false;
         }
     }
 }
